@@ -8,7 +8,7 @@ export class RecipeService {
   recipeSelected = new EventEmitter<Recipe>();
 
   private recipes: Recipe[] = [
-      new Recipe(
+      new Recipe (
         'A Test Recipe 1',
         'This is simply a test 1',
         'https://static01.nyt.com/images/2015/08/14/dining/14ROASTEDSALMON/14ROASTEDSALMON-articleLarge.jpg',
@@ -17,7 +17,7 @@ export class RecipeService {
           new Ingredient('Orange', 1)
         ]
       ),
-      new Recipe(
+      new Recipe (
         'A Test Recipe 2',
         'This is simply a test 2',
         'https://www.eatingthaifood.com/wp-content/uploads/2017/05/thai-cashew-chicken-recipe.jpg',
@@ -26,15 +26,19 @@ export class RecipeService {
           new Ingredient('Beans', 20)
         ]
       )
-  ]
+  ];
 
-  constructor(private slService: ShoppingListService){ }
+  constructor(private slService: ShoppingListService) { }
 
-  getRecipes(){
+  getRecipes() {
     return this.recipes.slice();
   }
 
-  addIngredientsToShoppingList(ingredients: Ingredient[]){
+  getRecipe(index: number) {
+    return this.recipes[index];
+  }
+
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.slService.addIngredients(ingredients);
   }
 }

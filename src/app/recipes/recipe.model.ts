@@ -11,7 +11,7 @@ export class Recipe {
     desc: string,
     imagePath: string,
     ingredients: Ingredient[]
-    ){
+    ) {
     this.name = name;
     this.description = desc;
     this.imagePath = imagePath;
