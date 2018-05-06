@@ -30,15 +30,20 @@
             class="btn btn-success"
             type="submit"
             [disabled]="f.invalid">
+            <span class="glyphicon glyphicon-floppy-disk"></span>
             {{ editMode? 'Update' : 'Add' }}
           </button>
           <button
             class="btn btn-danger"
             *ngIf="editMode"
-            type="button" (click)="onDelete()">Delete</button>
+            type="button" (click)="onDelete()"
+            ><span class="glyphicon glyphicon-remove"></span> Delete</button>
           <button
             class="btn btn-primary"
-            type="button" (click)="onClear()">Clear</button>
+            type="button" (click)="onClear()">
+            <span class="glyphicon glyphicon-refresh"></span> 
+              Clear
+            </button>
         </div>
       </div>
     </form>

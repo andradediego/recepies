@@ -21,22 +21,26 @@
       <ul class="dropdown-menu">
         <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
         <li><a style="cursor: pointer" (click)="onEditRecipe()">Edit Recipe</a></li>
-        <li><a style="cursor: pointer">Delete Recipe</a></li>
+        <li><a style="cursor: pointer" (click)="onDeleteRecipe()">Delete Recipe</a></li>
       </ul>
     </div>
   </div>
 </div>
+<br/>
 <div class="row">
   <div class="col-xs-12">
     {{recipe.description}}
   </div>
 </div>
+<hr/>
 <div class="row">
   <div class="col-xs-12">
-    <ul>
+    <ul class="list-group">
       <li class="list-group-item"
-      *ngFor="let ingredient of recipe.ingredients"
-      >{{ingredient.name}} - {{ingredient.amount}}</li>
+      *ngFor="let ingredient of recipe.ingredients">
+        <span class="badge">{{ingredient.amount}}</span>
+        {{ingredient.name}}
+    </li>
     </ul>
   </div>
 </div>

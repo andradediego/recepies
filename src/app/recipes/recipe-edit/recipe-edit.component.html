@@ -1,3 +1,102 @@
-<p>
-  recipe-edit works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+            <button 
+              type="submit" 
+              class="btn btn-success"
+              [disabled]="recipeForm.invalid">
+              <span class="glyphicon glyphicon-floppy-disk"></span>
+              Save
+            </button>
+            <button type="button" 
+              (click)="onCancel()"
+              class="btn btn-danger">
+              <span class="glyphicon glyphicon-refresh"></span>
+              Cancel
+            </button>
+        </div>        
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" 
+              class="form-control" 
+              id="name" 
+              formControlName="name" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="imagePath">Image URL:</label>
+              <input type="text" 
+                class="form-control" 
+                id="imagePath" 
+                #imagePath
+                formControlName="imagePath"/>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-12">
+            <img [src]="imagePath.value" class="img-responsive"/>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea type="text" 
+                class="form-control" 
+                id="description" 
+                rows="6" 
+                formControlName="description">
+              </textarea>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-12" formArrayName="ingredients">
+            <div class="row add-margin-bottom" 
+              *ngFor="let ingredientCtrl 
+                of recipeForm.get('ingredients')['controls']; 
+                let i = index"  
+              [formGroupName]="i">
+              <div class="col-xs-8">
+                  <input type="text"
+                  formControlName="name" 
+                  class="form-control" />
+              </div>
+              <div class="col-xs-2">
+                  <input type="number" 
+                  formControlName="amount" 
+                  class="form-control" />
+              </div>
+              <div class="col-xs-2">
+                <button class="btn btn-danger"
+                (click)="onDeleteIngredient(i)">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>               
+              </div>
+            </div>            
+            <hr />
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button" 
+                  (click)="onAddIngredient()"
+                    class="btn btn-success">
+                    <span class="glyphicon glyphicon glyphicon-plus"></span>
+                    Add Ingredient
+                  </button>
+              </div>
+            </div>
+          </div>          
+      </div>
+    </form>
+  </div>
+</div>
