@@ -23,6 +23,7 @@
     "@angular/router": "^5.2.10",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.5",
+    "firebase": "^5.0.2",
     "hoek": "^5.0.3",
     "rxjs": "^5.5.10",
     "zone.js": "^0.8.26"
