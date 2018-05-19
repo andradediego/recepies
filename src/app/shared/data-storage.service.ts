@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 
 import { RecipeService } from './../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
@@ -7,28 +6,47 @@ import { ServerLinkComponent } from './server-link.component';
 // tslint:disable-next-line:import-blacklist
 import 'rxjs/Rx';
 import { AuthService } from '../auth/auth.service';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 
 @Injectable()
 export class DataStorageService {
-  constructor(private http: Http,
+  constructor(private httpClient: HttpClient,
     private recipeService: RecipeService,
     private servelinkComponent: ServerLinkComponent,
     private authService: AuthService) { }
 
   storeRecipes() {
     const token = this.authService.getToken();
-    return this.http.put(this.servelinkComponent.url + '?auth=' + token,
-      this.recipeService.getRecipes());
+    // return this.httpClient.put(this.servelinkComponent.url,
+    //   this.recipeService.getRecipes(), {
+    //     // observe: 'events'
+    //     observe: 'body',
+    //     params: new HttpParams().set('auth', token),
+    //     // headers: new HttpHeaders().set('Autho')
+    //   });
+    const req = new HttpRequest(
+      'PUT',
+      this.servelinkComponent.url,
+      this.recipeService.getRecipes(),
+      {
+        // params: new HttpParams().set('auth', token),
+        reportProgress: true
+      }
+    );
+    return this.httpClient.request(req);
   }
 
   getRecipes() {
     // tslint:disable-next-line:prefer-const
     const token = this.authService.getToken();
 
-    this.http.get(this.servelinkComponent.url + '?auth=' + token)
+    this.httpClient.get<Recipe[]>(this.servelinkComponent.url, {
+      observe: 'body',
+      responseType: 'json',
+      // params: new HttpParams().set('auth', token),
+  })
     .map(
-      (response: Response) => {
-        const recipes: Recipe[] = response.json();
+      (recipes) => {
         // tslint:disable-next-line:prefer-const
         for (let recipe of recipes) {
           if (!recipe['ingredients']) {
