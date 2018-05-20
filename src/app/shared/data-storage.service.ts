@@ -5,18 +5,16 @@ import { Recipe } from '../recipes/recipe.model';
 import { ServerLinkComponent } from './server-link.component';
 // tslint:disable-next-line:import-blacklist
 import 'rxjs/Rx';
-import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 
 @Injectable()
 export class DataStorageService {
   constructor(private httpClient: HttpClient,
     private recipeService: RecipeService,
-    private servelinkComponent: ServerLinkComponent,
-    private authService: AuthService) { }
+    private servelinkComponent: ServerLinkComponent) { }
 
   storeRecipes() {
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
     // return this.httpClient.put(this.servelinkComponent.url,
     //   this.recipeService.getRecipes(), {
     //     // observe: 'events'
@@ -38,7 +36,7 @@ export class DataStorageService {
 
   getRecipes() {
     // tslint:disable-next-line:prefer-const
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
 
     this.httpClient.get<Recipe[]>(this.servelinkComponent.url, {
       observe: 'body',

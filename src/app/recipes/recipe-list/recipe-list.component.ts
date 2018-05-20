@@ -1,10 +1,13 @@
 import { Subscription } from 'rxjs/Subscription';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
-import { AuthService } from '../../auth/auth.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
 
 @Component({
   selector: 'app-recipe-list',
@@ -15,11 +18,13 @@ import { AuthService } from '../../auth/auth.service';
 export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
   subscription: Subscription;
+  authState: Observable<fromAuth.IAppState>;
+
   constructor(
     private recipeService: RecipeService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService) {
+    private store: Store<fromApp.IAppState>) {
 
   }
 
@@ -30,6 +35,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       }
     );
     this.recipes = this.recipeService.getRecipes();
+    this.authState = this.store.select('auth');
   }
 
   ngOnDestroy () {
@@ -38,9 +44,5 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   onNewRecipe() {
     this.router.navigate(['new'], { relativeTo: this.route });
-  }
-
-  isAuthenticated() {
-    return this.authService.isAuthenticated();
   }
 }

@@ -1,12 +1,15 @@
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { Store } from '@ngrx/store';
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
-import { IAppState } from '../../shopping-list/store/shopping-list.reducers';
+import * as fromApp from '../../store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
+
 
 @Component({
   selector: 'app-recipe-detail',
@@ -16,12 +19,13 @@ import { IAppState } from '../../shopping-list/store/shopping-list.reducers';
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   index: number;
+  authState: Observable<fromAuth.IAppState>;
 
   constructor(private recipeService: RecipeService,
   private route: ActivatedRoute,
   private router: Router,
   private authService: AuthService,
-  private store: Store<IAppState>) { }
+  private store: Store<fromApp.IAppState>) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -30,6 +34,7 @@ export class RecipeDetailComponent implements OnInit {
         this.recipe = this.recipeService.getRecipe(this.index);
       }
     );
+    this.authState = this.store.select('auth');
   }
 
   onAddToShoppingList() {
@@ -46,9 +51,5 @@ export class RecipeDetailComponent implements OnInit {
   onDeleteRecipe() {
     this.recipeService.deleteRecipe(this.index);
     this.router.navigate(['/recipes'], {relativeTo: this.route});
-  }
-
-  isAuthenticated() {
-    return this.authService.isAuthenticated();
   }
 }
