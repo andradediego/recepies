@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/share.module';
 import { AuthGuard } from '../auth/auth-guard.service';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseCredentials } from '../firebase-credentials.service';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { RecipeService } from '../recipes/recipe.service';
 import { DataStorageService } from '../shared/data-storage.service';
 import { ServerLinkComponent } from '../shared/server-link.component';
@@ -29,7 +28,6 @@ import { LoginInterceptor } from './../shared/login-interceptor';
     HeaderComponent
   ],
   providers: [
-    ShoppingListService,
     RecipeService,
     DataStorageService,
     ServerLinkComponent,
