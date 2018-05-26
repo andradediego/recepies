@@ -5,7 +5,6 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared/share.module';
 import { AuthGuard } from '../auth/auth-guard.service';
-import { AuthService } from '../auth/auth.service';
 import { FirebaseCredentials } from '../firebase-credentials.service';
 import { RecipeService } from '../recipes/recipe.service';
 import { DataStorageService } from '../shared/data-storage.service';
@@ -32,7 +31,6 @@ import { LoginInterceptor } from './../shared/login-interceptor';
     DataStorageService,
     ServerLinkComponent,
     FirebaseCredentials,
-    AuthService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

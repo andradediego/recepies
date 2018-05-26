@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/data-storage.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
+import * as AuthActions from '../../auth/store/auth.actions';
+
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private dataStorageService: DataStorageService,
-    private authService: AuthService,
     private router: Router,
     private store: Store<fromApp.IAppState>) { }
 
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.store.dispatch(new AuthActions.Logout());
     this.router.navigate(['']);
   }
 
