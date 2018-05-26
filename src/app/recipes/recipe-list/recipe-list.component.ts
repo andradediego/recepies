@@ -18,7 +18,7 @@ import * as fromAuth from '../../auth/store/auth.reducers';
 export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
   subscription: Subscription;
-  authState: Observable<fromAuth.IAppState>;
+  authState: Observable<fromAuth.IAuthState>;
 
   constructor(
     private recipeService: RecipeService,

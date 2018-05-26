@@ -14,7 +14,7 @@ import * as fromAuth from '../../auth/store/auth.reducers';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
-  authState: Observable<fromAuth.IAppState>;
+  authState: Observable<fromAuth.IAuthState>;
 
   constructor(
     private dataStorageService: DataStorageService,

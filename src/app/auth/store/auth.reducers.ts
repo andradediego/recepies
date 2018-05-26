@@ -1,11 +1,11 @@
 import * as AuthActions from './auth.actions';
 
-export interface IAppState {
+export interface IAuthState {
   token: string;
   authenticated: boolean;
 }
 
-const initialState: IAppState = {
+const initialState: IAuthState = {
   token: null,
   authenticated: false
 };

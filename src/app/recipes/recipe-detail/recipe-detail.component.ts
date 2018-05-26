@@ -19,7 +19,7 @@ import * as fromAuth from '../../auth/store/auth.reducers';
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   index: number;
-  authState: Observable<fromAuth.IAppState>;
+  authState: Observable<fromAuth.IAuthState>;
 
   constructor(private recipeService: RecipeService,
   private route: ActivatedRoute,
