@@ -3,11 +3,10 @@ import { Effect, Actions } from '@ngrx/effects';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
-import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/mergeMap';
 import { fromPromise } from 'rxjs/observable/fromPromise';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
-import * as Rx from 'rxjs';
 
 import * as AuthActions from './auth.actions';
 

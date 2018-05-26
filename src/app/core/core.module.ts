@@ -6,8 +6,6 @@ import { HeaderComponent } from './header/header.component';
 import { SharedModule } from '../shared/share.module';
 import { AuthGuard } from '../auth/auth-guard.service';
 import { FirebaseCredentials } from '../firebase-credentials.service';
-import { RecipeService } from '../recipes/recipe.service';
-import { DataStorageService } from '../shared/data-storage.service';
 import { ServerLinkComponent } from '../shared/server-link.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './../shared/auth.interceptor';
@@ -27,8 +25,6 @@ import { LoginInterceptor } from './../shared/login-interceptor';
     HeaderComponent
   ],
   providers: [
-    RecipeService,
-    DataStorageService,
     ServerLinkComponent,
     FirebaseCredentials,
     AuthGuard,
