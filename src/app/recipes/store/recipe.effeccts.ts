@@ -4,12 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/commo
 import { ServerLinkComponent } from '../../shared/server-link.component';
 import * as fromRecipe from './recipe.reducers';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/mergeMap';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import {switchMap, withLatestFrom, map } from 'rxjs/operators';
 
 import * as firebase from 'firebase';
 
@@ -22,15 +17,15 @@ export class RecipeEffects {
   @Effect()
   recipeFetch = this.actions$
   .ofType(RecipeActions.FETCH_RECIPES)
-  .switchMap(
+  .pipe(switchMap(
     (action: RecipeActions.FetchRecipes) => {
       return this.httpClient.get<Recipe[]>(this.servelinkComponent.url, {
         observe: 'body',
         responseType: 'json'
       });
     }
-  )
-  .map(
+  ),
+  map(
     (recipes) => {
       // tslint:disable-next-line:prefer-const
       for (let recipe of recipes) {
@@ -43,28 +38,29 @@ export class RecipeEffects {
         payload: recipes
       };
     }
-  );
+  ));
 
   @Effect({dispatch: false})
   recipeStore = this.actions$
   .ofType(RecipeActions.STORE_RECIPES)
-  .withLatestFrom(
-    this.store.select('recipes')
-  )
-  .switchMap(
-    ([action, state]) => {
-      const req = new HttpRequest(
-        'PUT',
-        this.servelinkComponent.url,
-        state.recipes,
-        {
-          // params: new HttpParams().set('auth', token),
-          reportProgress: true
-        }
-      );
-      return this.httpClient.request(req);
-    }
-  );
+  .pipe(
+    withLatestFrom(
+      this.store.select('recipes')
+    ),
+    switchMap(
+      ([action, state]) => {
+        const req = new HttpRequest(
+          'PUT',
+          this.servelinkComponent.url,
+          state.recipes,
+          {
+            // params: new HttpParams().set('auth', token),
+            reportProgress: true
+          }
+        );
+        return this.httpClient.request(req);
+      }
+  ));
 
   constructor(private actions$: Actions,
     private httpClient: HttpClient,
